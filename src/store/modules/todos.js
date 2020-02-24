@@ -38,13 +38,27 @@ const actions = {
     );
 
     commit('setTodos', response.data)
+  },
+
+  async updateTodo({ commit }, updateTodo){
+    axios.put(
+      `https://jsonplaceholder.typicode.com/todos/${updateTodo.id}`
+    )
+
+    commit('updTodo', updateTodo)
   }
 }
 
 const mutations = {
   setTodos: (state, todos) => (state.todos = todos),
   newTodo: (state, todo) => (state.todos.unshift(todo)),
-  removeTodo: (state, id) => state.todos = state.todos.filter(todo => todo.id !== id)  // todoのIDを含まないようリストを格納
+  removeTodo: (state, id) => state.todos = state.todos.filter(todo => todo.id !== id),  // todoのIDを含まないようリストを格納
+  updTodo: (state, updTodo) => {
+    const index = state.todos.findIndex(todo => todo.id === updTodo.id);
+    if (index !== -1){
+      state.todos.splice(index, 1, updTodo)
+    }
+  }
 }
 
 export default {
