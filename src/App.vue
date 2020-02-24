@@ -12,7 +12,7 @@ import Todos from "./components/Todos.vue";
 export default {
   name: "App",
   components: {
-    Todos
+    Todos,
   }
 };
 </script>
